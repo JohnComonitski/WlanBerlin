@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wifi in Berlin</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+
+    <div  id="map"></div>
+    <div class = "float" id="header">
+      <div id=title>
+        <h1 id = "titleText"> WLAN Berlin </h1>
+      </div>
+    </div>
+    <img src="logo.png" class="float" id = "logo">
+    <div class = "btn" id = "find">Find nearest wifi!</div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdFOqkVCJbNqStF0_UZDNbkU157DXPPSSjqBcBYBLcb3bJgiQ/viewform?usp=sf_link" class = "btn" id = "submit">Submit locations!</a>
+
+
+    <div class="bg-modal" style = "display:flex;">
+      <div class="modal-shape">
+        <div class = "modal-content">
+            <h1 class = "float" id = "name">Welcome!</h1>
+            <img src="logo.png" class="float" id = "descImg">
+            <div class = "float" id = "desc">
+              <p style="margin:0px;">
+                Welcome to WLAN Berlin! <br> Find publicly available wifi in Berlin. Please submit open Wifi you are aware of!<br><br>John Comonitski, 2019
+              </p>
+            </div>"
+        </div>
+        <div class="close">+</div>
+      </div>
+    </div>
+
+
+    <script>
+
+      var locations = {
+        markers:
+        [
+          {
+            name: "Starbucks",
+            locImage: "./descriptImages/starbucks.png",
+            iconImage: "http://wlanberlin.de/images/bucks.png",
+            availability: "Open",
+            coordinates: [
+              {
+                coords:{lat: 52.509510, lng:  13.373124},
+                addr: "Sony Center, Potsdamer Straße 2, 10785 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.510511, lng: 13.376187},
+                addr: "Potsdamer Platz 5, 10785 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.524887 ,lng: 13.369959},
+                addr: "Pariser Platz 4A, 10117 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.506410 ,lng: 13.445887},
+                addr: "Tamara-Danz-Straße 11, 10243 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.509558 ,lng: 13.434252},
+                addr: "Am Ostbahnhof, 10559 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.520009 ,lng: 13.415188},
+                addr: "GRUNERSTRASSE 20 ALEXA, 10179 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.521473 ,lng: 13.411204},
+                addr: "Berlin Alexanderplatz Bahnhof, Dircksenstr. 2, 10179 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.520579 ,lng: 13.408904},
+                addr: "Panoramastraße 1A, 10719 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.519566 ,lng: 13.388695},
+                addr: "FRIEDRICHSTRASSE 96 IHZ, 10117 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.511070 ,lng: 13.390018},
+                addr: "Friedrichstraße 61, 10117 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.503958 ,lng: 13.333334},
+                addr: "Kurfürstendamm 231, 10719 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.507059 ,lng: 13.333334},
+                addr: "Hardenbergplatz 11, 10623 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.505744 ,lng: 13.332026},
+                addr: "Joachimsthaler Str. 1-4, 10623 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.503403 ,lng: 13.328399},
+                addr: "Kurfürstendamm 26A, 10719 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.500989 ,lng: 13.312780},
+                addr: "PKurfürstendamm 61, 10707 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.464396 ,lng: 13.328321},
+                addr: "Schloßstraße 129, 12163 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.554472 ,lng: 13.289979},
+                addr: "Terminal A, SAATWINKLER DAMM FLUGHAFEN TEGEL - TXL, 13405 Berlin, Germany"
+              },
+              {
+                coords:{lat: 52.523193 ,lng: 13.402087},
+                addr: "Neue Promenade 3, 10178 Berlin, Germany"
+              }
+            ]
+          },
+          {
+            name: "BVG",
+            availability: "Open",
+            locImage: "./descriptImages/ubahn.png",
+            iconImage: "http://wlanberlin.de/images/bvg.png",
+            coordinates: [
+              {
+              coords :{lat: 52.509466, lng:  13.378819},
+              addr: "S+U Potsdamer Platz"
+              },
+              {
+              coords: {lat: 52.511847, lng: 13.385175},
+              addr: "U Mohrenstraße"
+              },
+              {
+                coords:{lat: 52.512197 ,lng: 13.390688},
+                addr: "U Stadtmitte"
+              },
+              {
+                coords:{lat: 52.505076 ,lng: 13.449029},
+                addr: "U Warschauer Straße"
+              },
+              {
+                coords:{lat: 52.500944 ,lng: 13.441528},
+                addr: "U Schlesisches Tor"
+              },
+              {
+                coords:{lat: 52.499255 ,lng: 13.427874},
+                addr: "Görlitzer Bahnhof"
+              },
+              {
+                coords:{lat: 52.499075 ,lng: 13.418298},
+                addr: "Kottbusser Tor"
+              },
+              {
+                coords:{lat: 52.498489 ,lng: 13.405804},
+                addr: "U Prinzenstraße"
+              },
+              {
+                coords:{lat: 52.497905 ,lng: 13.390812},
+                addr: "U Hallesches Tor"
+              },
+              {
+                coords:{lat: 52.499299 ,lng: 13.382618},
+                addr: "Bhf. Möckernbrücke"
+              },
+              {
+                coords:{lat: 52.499620 ,lng: 13.374293},
+                addr: "U Gleisdreieck"
+              },
+              {
+                coords:{lat: 52.499871 ,lng: 13.362771},
+                addr: "U Kurfürstenstr."
+              },
+              {
+                coords:{lat: 52.499490 ,lng: 13.354424},
+                addr: "U Nollendorfplatz"
+              },
+              {
+                coords:{lat: 52.501865 ,lng: 13.343043},
+                addr: "Bahnhof Wittenberg-platz"
+              },
+              {
+                coords:{lat: 52.503594 ,lng: 13.331060},
+                addr: "U Kurfürstendamm"
+              },
+              {
+                coords:{lat: 52.502909 ,lng: 13.326293},
+                addr: "U Uhlandstr."
+              },
+              {
+                coords:{lat: 52.526102 ,lng: 13.241036},
+                addr: "U Ruhleben"
+              },
+              {
+                coords:{lat: 52.517336 ,lng: 13.250030},
+                addr: "U Olympia Stadion"
+              },
+              {
+                coords:{lat: 52.516389 ,lng: 13.260297},
+                addr: "U New-Westend"
+              },
+              {
+                coords:{lat: 52.509928 ,lng: 13.272566},
+                addr: "U Theodor-Heuss-Platz"
+              },
+              {
+                coords:{lat: 52.509999 ,lng: 13.281873},
+                addr: "U Kaiserdamm"
+              },
+              {
+                coords:{lat: 52.510971 ,lng: 13.295371},
+                addr: "U Sophie-Charolette-Plazt"
+              },
+              {
+                coords:{lat: 52.511677 ,lng: 13.305221},
+                addr: "U Bismarckstraße"
+              },
+              {
+                coords:{lat: 52.511879 ,lng: 13.309455},
+                addr: "U Deutsche Oper"
+              },
+              {
+                coords:{lat: 52.511636 ,lng: 13.322165},
+                addr: "U Ernst-Reuter-Platz"
+              },
+              {
+                coords:{lat: 52.507392 ,lng: 13.332323},
+                addr: "Zoologischer Garten"
+              },
+              {
+                coords:{lat: 52.497705 ,lng: 13.363282},
+                addr: "U Bülowstraße"
+              },
+              {
+                coords:{lat: 52.503631 ,lng: 13.374778},
+                addr: "U Mendelssohn-Bartholdy-Park"
+              },
+              {
+                coords:{lat: 52.511846 ,lng: 13.385210},
+                addr: "U Mohrenstraße"
+              },
+              {
+                coords:{lat: 52.512251 ,lng: 13.390671},
+                addr: "U Stadtmitte"
+              },
+              {
+                coords:{lat: 52.513367 ,lng: 13.395596},
+                addr: "U Hausvogteiplatz"
+              },
+              {
+                coords:{lat: 52.511348 ,lng: 13.405005},
+                addr: "U Spittelmarkt"
+              },
+              {
+                coords:{lat: 52.512739 ,lng: 13.411185},
+                addr: "U Märkisches Museum"
+              },
+              {
+                coords:{lat: 52.518115 ,lng: 13.411916},
+                addr: "Bhf Klosterstraße"
+              },
+              {
+                coords:{lat: 52.521778 ,lng: 13.413615},
+                addr: "Alexanderplatz"
+              },
+              {
+                coords:{lat: 52.527863 ,lng: 13.410360},
+                addr: "Rosa-Luxemburg-Platz"
+              },
+              {
+                coords:{lat: 52.532373 ,lng: 13.412599},
+                addr: "U Senefelderplatz"
+              },
+              {
+                coords:{lat: 52.532373 ,lng: 13.412599},
+                addr: "U Eberswalder Straße"
+              },
+              {
+                coords:{lat: 52.549358 ,lng: 13.413666},
+                addr: "U Schönhauser Allee"
+              },
+              {
+                coords:{lat: 52.559447 ,lng: 13.413338},
+                addr: "U-Bhf Vinetastraße"
+              },
+              {
+                coords:{lat: 52.566413 ,lng: 13.410520},
+                addr: "S+U Pankow"
+              }
+
+
+            ]
+          },
+          {
+            name: "Golden Brown Café",
+            availability: "Password available on request",
+            locImage: "./descriptImages/coffee.png",
+            iconImage: "http://wlanberlin.de/images/wifi.png",
+            coordinates: [
+              {
+              coords :{lat: 52.463677, lng:  13.334556},
+              addr: "Schönhauser Str. 1, 12157 Berlin, Germany"
+              }
+            ]
+          },
+          {
+            name: "Mall of Berlin",
+            availability: "Open",
+            locImage: "./descriptImages/mall.png",
+            iconImage: "http://wlanberlin.de/images/wifi.png",
+            coordinates: [
+              {
+              coords :{lat: 52.510537, lng:  13.380808},
+              addr: "Leipziger Pl. 12, 10117 Berlin, Germany"
+              }
+            ]
+          },
+          {
+            name: "Moa",
+            availability: "Open",
+            locImage: "./descriptImages/coffee.png",
+            iconImage: "http://wlanberlin.de/images/wifi.png",
+            coordinates: [
+              {
+              coords :{lat: 52.524445, lng:  13.349324},
+              addr: "Kirchstraße 1, 10557 Berlin, Germany"
+              }
+            ]
+          },
+          {
+            name: "Balzac Coffee",
+            availability: "Open",
+            locImage: "./descriptImages/balzac.png",
+            iconImage: "http://wlanberlin.de/images/bal.png",
+            coordinates: [
+              {
+              coords :{lat: 52.4570073, lng:  13.3221727},
+              addr: "Albrechtstraße 131, 12165 Berlin, Germany"
+              },
+              {
+              coords :{lat: 52.5093813, lng:  13.3229523},
+              addr: "Knesebeckstraße 1-2, 10623 Berlin, Germany"
+              },
+              {
+              coords :{lat: 52.5082693, lng:  13.3770044},
+              addr: "Potsdamer Platz 10, 10785 Berlin, Germany"
+              },
+              {
+              coords :{lat: 52.4894164, lng:  13.392622},
+              addr: "Bergmannstraße 92, 10961 Berlin, Germany"
+              },
+              {
+              coords :{lat: 52.525912, lng:  13.3869997},
+              addr: "Friedrichstraße 125, 10117 Berlin, Germany"
+              },
+              {
+              coords :{lat: 52.5307598, lng:  13.3831456},
+              addr: "Invalidenstraße 35, 10115 Berlin, Germany"
+              }
+            ]
+          }
+        ]
+      };
+
+      var map;
+      var options;
+      function initMap() {
+        //create map
+        options = {
+          center: {lat: 52.516159, lng: 13.377248},
+          zoom: 14,
+          disableDefaultUI: true,
+          zoomControl:true
+        };
+
+        map = new google.maps.Map(document.getElementById('map'), options);
+
+        // Listen for click on map
+        google.maps.event.addListener(map, 'click', function(event){
+          addMarker({coords:event.latLng});
+        });
+
+        var locationTypes = locations.markers;
+        for (var i = 0; i < locationTypes.length; i++)
+        {
+          var markers = locationTypes[i].coordinates;
+          for (var j = 0; j < markers.length; j++)
+          {
+            addMarker(markers[j], locationTypes[i],map);
+          }
+        }
+
+        function addMarker(props, locationType, mp){
+          var marker = new google.maps.Marker({
+            position:props.coords,
+            map:mp,
+            icon:locationType.iconImage
+          });
+
+
+          marker.addListener('click', function(){
+            document.querySelector('.bg-modal').style.display = "flex";
+            document.querySelector('.modal-content').innerHTML="<h1 class = \"float\" id = \"name\">" + locationType.name + "</h1><img src=\"" + locationType.locImage + "\" class=\"float\" id = \"descImg\"><div class = \"float\" id = \"desc\"> </div>"
+            document.getElementById('desc').innerHTML = createBody(props.coords.lat, props.coords.lng, locationType.availability, props.addr, locationType.name, locationType.locImage);
+          });
+        }
+
+      }
+
+      function createBody(lat, lng, status, addr, name, image){
+        var body = "</h1><p>Wifi: ";
+        body += status +"<br> Address: ";
+        body += addr +"<br> <a , href=\"http://www.google.com/maps/place/";
+        body += lat + "." + lng + "\">Link on Map</a>";
+        return body;
+      }
+
+      function findNearest(lat, lng)
+      {
+        //Finding point
+        var closestDist = 10000;
+        var closest;
+        var closestLocType;
+        var locationTypes = locations.markers;
+        for (var i = 0; i < locationTypes.length; i++)
+        {
+          var markers = locationTypes[i].coordinates;
+          for (var j = 0; j < markers.length; j++)
+          {
+            markLat = markers[j].coords.lat;
+            markLng = markers[j].coords.lng;
+            dist = Math.sqrt(Math.pow(markLat-lat,2)+Math.pow(markLng-lng,2));
+            if(dist<closestDist)
+            {
+              closestDist = dist;
+              closest = markers[j];
+              closestLocType = locationTypes[i]
+            }
+          }
+        }
+        //updating map
+        //Current Location Marker
+        new google.maps.Marker({
+          position:{lat: lat, lng:  lng},
+          map:map,
+        });
+        //Pop up location modal
+        document.querySelector('.bg-modal').style.display = "flex";
+        document.querySelector('.modal-content').innerHTML="<h1 class = \"float\" id = \"name\">" + closestLocType.name + "</h1><img src=\"" + closestLocType.locImage + "\" class=\"float\" id = \"descImg\"><div class = \"float\" id = \"desc\"> </div>"
+        document.getElementById('desc').innerHTML = createBody(closest.coords.lat, closest.coords.lng, closestLocType.availability, closest.addr, closestLocType.name, closestLocType.locImage);
+        //update Map
+        map.setCenter({lat: lat, lng:  lng})
+
+      }
+
+      document.getElementById('find').addEventListener('click',
+        function(){
+          document.querySelector('.bg-modal').style.display = 'flex';
+          document.querySelector('.modal-content').innerHTML="<h1 class = \"float\" id = \"name\"> Find Nearest Wifi </h1><img src=\"logo.png\" class=\"float\" id = \"descImg\"><div class = \"float\" id = \"desc\"> </div>"
+          document.getElementById('desc').innerHTML = "<form action=\"\"><input class = \"float\" type=\"text\" id = \"addr\" placeholder=\"My address\"></form> <div class = \"btn\" id = \"findMe\">Find me!</div> <div class = \"btn\" id = \"findNearest\">Find nearest Wifi!</div>";
+          document.getElementById('findNearest').addEventListener('click',
+          function(){
+            var addr ="" + document.getElementById('addr').value;
+            var cords = new Array(2);
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode({address: addr}, function(results, status){
+              if (status == google.maps.GeocoderStatus.OK) {
+                cords[0] = results[0].geometry.location.lat();
+                cords[1] = results[0].geometry.location.lng();
+                findNearest(cords[0],cords[1]);
+                callback(cords);
+              }
+              else{
+                console.log("ERROR: Bad ddress")
+              }
+            });
+          });
+          document.getElementById('findMe').addEventListener('click',
+            function(){
+              if (navigator.geolocation)
+              {
+                 navigator.geolocation.getCurrentPosition(function(position){
+                   map.setCenter({lat: position.coords.latitude, lng:  position.coords.longitude});
+                   document.getElementById('addr').value =  position.coords.latitude+","+position.coords.longitude;
+                 });
+              }
+            });
+          function callback(results){
+            console.log(results)
+          }
+        });
+      document.querySelector('.close').addEventListener('click',
+        function(){
+          document.querySelector('.bg-modal').style.display = 'none';
+        });
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnYt65ye0_2JMMZRl9mZRLbYuGD2z7hjI&callback=initMap"
+    async defer></script>
+
+  </body>
+</html>

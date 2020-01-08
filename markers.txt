@@ -1,0 +1,45 @@
+{
+  markers:
+  [
+    {
+      name: "Starbucks",
+      iconImage: "http://wlanberlin.de/images/bucks.png",
+      availability: "open",
+      coordinates:
+      [
+        {
+          coords:{lat: 52.509510, lng:  13.373124},
+          addr: "Sony Center, Potsdamer Straße 2, 10785 Berlin, Germany"
+        },
+        {
+          coords:{lat: 52.510511, lng: 13.376187},
+          addr: "Potsdamer Platz 5, 10785 Berlin, Germany"
+        },
+        {
+          coords:{lat: 52.524887 ,lng: 13.369959},
+          addr: "Pariser Platz 4A, 10117 Berlin, Germany"
+        }
+      ]
+    },
+    {
+      name: "BVG",
+      availability: "open",
+      iconImage: "http://wlanberlin.de/images/bvg.png",
+      coordinates:
+      [
+        {
+        coords :{lat: 52.509466, lng:  13.378819},
+        addr: "S+U Potsdamer Platz"
+        },
+        {
+        coords: {lat: 52.511847, lng: 13.385175},
+        addr: "U Mohrenstraße"
+        },
+        {
+          coords:{lat: 52.512197 ,lng: 13.390688},
+          addr: "U Stadtmitte"
+        }
+      ]
+    }
+  ]
+}
